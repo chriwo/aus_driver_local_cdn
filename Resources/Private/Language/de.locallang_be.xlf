@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="messages" date="2013-05-27T14:06:47Z" product-name="aus_driver_local_cdn">
+		<header/>
+		<body>
+
+			<trans-unit id="driverConfiguration.publicUrl">
+				<target>Öffentliche Url (e.g. http://cdn.domain.com)</target>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>
