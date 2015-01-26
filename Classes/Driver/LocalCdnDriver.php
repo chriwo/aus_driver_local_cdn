@@ -1,13 +1,11 @@
 <?php
 namespace AUS\AusDriverLocalCdn\Driver;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Core\Resource\ResourceStorage;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2014 Markus Hölzle <m.hoelzle@andersundsehr.com>, anders und sehr GmbH
+ *  (c) 2015 Markus Hölzle <m.hoelzle@andersundsehr.com>, anders und sehr GmbH
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -42,6 +40,11 @@ class LocalCdnDriver extends \TYPO3\CMS\Core\Resource\Driver\LocalDriver {
 
 	const EXTENSION_KEY = 'aus_driver_local_cdn';
 
+	/**
+	 * @var \AUS\AusDriverLocalCdn\Index\Extractor
+	 * @inject
+	 */
+	protected $extractor;
 
 	/**
 	 * Returns the public URL to a file.
