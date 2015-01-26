@@ -40,6 +40,8 @@ class LocalCdnDriver extends \TYPO3\CMS\Core\Resource\Driver\LocalDriver {
 
 	const DRIVER_TYPE = 'AusDriverLocalCdn';
 
+	const EXTENSION_KEY = 'aus_driver_local_cdn';
+
 
 	/**
 	 * Returns the public URL to a file.
