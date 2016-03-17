@@ -40,32 +40,34 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author Markus Hölzle <m.hoelzle@andersundsehr.com>
  * @author Stefan Lamm <s.lamm@andersundsehr.com>
  */
-class FileIndexRepository {
+class FileIndexRepository
+{
 
-	public function recordUpdatedOrCreated($data) {
+    public function recordUpdatedOrCreated($data)
+    {
+        if ($data['type'] === File::FILETYPE_IMAGE) {
+            /* @var $storage \TYPO3\CMS\Core\Resource\ResourceStorage */
+            $storage = ResourceFactory::getInstance()->getStorageObject($data['storage']);
 
-		if ($data['type'] === File::FILETYPE_IMAGE) {
-			/* @var $storage \TYPO3\CMS\Core\Resource\ResourceStorage */
-			$storage = ResourceFactory::getInstance()->getStorageObject($data['storage']);
+            // only process on our driver type where data was missing
+            if ($storage->getDriverType() !== LocalCdnDriver::DRIVER_TYPE) {
+                return null;
+            }
 
-			// only process on our driver type where data was missing
-			if ($storage->getDriverType() !== LocalCdnDriver::DRIVER_TYPE) {
-				return NULL;
-			}
+            $file = $storage->getFile($data['identifier']);
+            $imageDimensions = Extractor::getImageDimensionsOfRemoteFile($file);
 
-			$file = $storage->getFile($data['identifier']);
-			$imageDimensions = Extractor::getImageDimensionsOfRemoteFile($file);
+            if ($imageDimensions !== null) {
+                /* @var $metaDataRepository \TYPO3\CMS\Core\Resource\Index\MetaDataRepository */
+                $metaDataRepository = GeneralUtility::makeInstance(
+                    'TYPO3\\CMS\\Core\\Resource\\Index\\MetaDataRepository'
+                );
+                $metaData = $metaDataRepository->findByFileUid($data['uid']);
 
-			if ($imageDimensions !== NULL) {
-				/* @var $metaDataRepository \TYPO3\CMS\Core\Resource\Index\MetaDataRepository */
-				$metaDataRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\Index\\MetaDataRepository');
-				$metaData = $metaDataRepository->findByFileUid($data['uid']);
-
-				$metaData['width'] = $imageDimensions[0];
-				$metaData['height'] = $imageDimensions[1];
-				$metaDataRepository->update($data['uid'], $metaData);
-			}
-		}
-	}
-
+                $metaData['width'] = $imageDimensions[0];
+                $metaData['height'] = $imageDimensions[1];
+                $metaDataRepository->update($data['uid'], $metaData);
+            }
+        }
+    }
 }

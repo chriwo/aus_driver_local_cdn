@@ -1,0 +1,25 @@
+{
+  "name": "andersundsehr/aus-driver-local-cdn",
+  "type": "typo3-cms-extension",
+  "version": "1.1.1",
+  "description": "Provides a FAL local filesystem driver for CDN. See documentation for more details.",
+  "homepage": "https://www.andersundsehr.com/blog/technik/typo3-performance-optimierung-durch-cdn",
+  "support": {
+    "source": "https://git.typo3.org/TYPO3CMS/Extensions/aus_driver_local_cdn.git",
+    "issues": "https://forge.typo3.org/projects/extension-aus_driver_local_cdn",
+    "docs": "https://docs.typo3.org/typo3cms/extensions/aus_driver_local_cdn/"
+  },
+  "license": "GPL-2.0+",
+  "require": {
+    "typo3/cms": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "AUS\\AusDriverLocalCdn\\": "Classes/"
+    }
+  },
+  "replace": {
+    "typo3-ter/aus_driver_local_cdn": "self.version",
+    "typo3-ter/aus-driver-local-cdn": "self.version"
+  }
+}
