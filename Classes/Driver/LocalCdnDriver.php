@@ -1,7 +1,6 @@
 <?php
 namespace AUS\AusDriverLocalCdn\Driver;
 
-
 /***************************************************************
  *  Copyright notice
  *
@@ -33,30 +32,32 @@ namespace AUS\AusDriverLocalCdn\Driver;
  *
  * @author Markus Hölzle <m.hoelzle@andersundsehr.com>
  */
-class LocalCdnDriver extends \TYPO3\CMS\Core\Resource\Driver\LocalDriver {
+class LocalCdnDriver extends \TYPO3\CMS\Core\Resource\Driver\LocalDriver
+{
 
 
-	const DRIVER_TYPE = 'AusDriverLocalCdn';
+    const DRIVER_TYPE = 'AusDriverLocalCdn';
 
-	const EXTENSION_KEY = 'aus_driver_local_cdn';
+    const EXTENSION_KEY = 'aus_driver_local_cdn';
 
 
-	/**
-	 * Returns the public URL to a file.
-	 * For the local driver, this will always return a path relative to PATH_site.
-	 *
-	 * @param string $identifier
-	 * @return string
-	 * @throws \TYPO3\CMS\Core\Resource\Exception
-	 */
-	public function getPublicUrl($identifier) {
-		$publicUrl = NULL;
-		$this->configuration['publicUrl'] = trim($this->configuration['publicUrl'], '/') . '/';
+    /**
+     * Returns the public URL to a file.
+     * For the local driver, this will always return a path relative to PATH_site.
+     *
+     * @param string $identifier
+     * @return string
+     * @throws \TYPO3\CMS\Core\Resource\Exception
+     */
+    public function getPublicUrl($identifier)
+    {
+        $publicUrl = null;
+        $this->configuration['publicUrl'] = trim($this->configuration['publicUrl'], '/') . '/';
 
-		$uriParts = explode('/', ltrim($identifier, '/'));
-		$uriParts = array_map('rawurlencode', $uriParts);
-		$identifier = implode('/', $uriParts);
-		$publicUrl = $this->configuration['publicUrl'] . $identifier;
-		return $publicUrl;
-	}
+        $uriParts = explode('/', ltrim($identifier, '/'));
+        $uriParts = array_map('rawurlencode', $uriParts);
+        $identifier = implode('/', $uriParts);
+        $publicUrl = $this->configuration['publicUrl'] . $identifier;
+        return $publicUrl;
+    }
 }
